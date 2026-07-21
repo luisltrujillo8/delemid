@@ -6,107 +6,23 @@
   <title>Delemid League</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Anton&family=Barlow+Condensed:wght@300;400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
+
     :root {
-      --gold: #F5C842;
-      --gold-dark: #C49A10;
-      --red: #C8102E;
-      --dark: #0A0A0F;
-      --dark2: #12121A;
-      --dark3: #1C1C28;
-      --gray: #888;
-      --light: #F0EDE8;
+      --gold: #F5C842; --gold-dark: #C49A10; --red: #C8102E;
+      --dark: #0A0A0F; --dark2: #12121A; --dark3: #1C1C28;
+      --gray: #888; --light: #F0EDE8;
     }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--dark); color:var(--light); font-family:'Barlow',sans-serif; overflow-x:hidden; }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: auto; }
+    input[type="radio"][name="tab"] { display:none; }
 
-    body {
-      background: var(--dark);
-      color: var(--light);
-      font-family: 'Barlow', sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV fijo arriba ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 1.5rem;
-      height: 64px;
-      background: rgba(10,10,15,0.97);
-      border-bottom: 1px solid rgba(245,200,66,0.18);
-    }
-
-    .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 3px;
-      color: var(--gold);
-      flex-shrink: 0;
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .nav-links::-webkit-scrollbar { display: none; }
-
-    .nav-links li a {
-      display: block;
-      padding: 0 1rem;
-      height: 64px;
-      line-height: 64px;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: rgba(240,237,232,0.5);
-      border-bottom: 2px solid transparent;
-      white-space: nowrap;
-    }
-
-    /* ── PÁGINAS: navegación CSS pura con :target ── */
-    .page {
+    .tab-pane {
       display: none;
-      min-height: 100vh;
+      min-height: calc(100vh - 64px);
       padding-top: 64px;
     }
-
-    /* Inicio visible por defecto (cuando no hay target) */
-    #inicio { display: flex; }
-    #inicio:target { display: flex; }
-
-    /* Resto de páginas solo visibles con :target */
-    #historia:target,
-    #clasificacion:target,
-    #mejores:target,
-    #estadisticas:target,
-    #palmares:target,
-    #fichajes:target,
-    #ultimahora:target,
-    #presidentes:target { display: block; }
-
-    /* Ocultar inicio cuando otra está activa */
-    #historia:target ~ #inicio,
-    #clasificacion:target ~ #inicio,
-    #mejores:target ~ #inicio,
-    #estadisticas:target ~ #inicio,
-    #palmares:target ~ #inicio,
-    #fichajes:target ~ #inicio,
-    #ultimahora:target ~ #inicio,
-    #presidentes:target ~ #inicio { display: none !important; }
-
-    /* ── HERO ── */
-    #inicio {
+    #pane-inicio {
       flex-direction: column;
       align-items: center;
       justify-content: center;
@@ -114,1115 +30,403 @@
       overflow: hidden;
     }
 
+    #tab-inicio:checked ~ .shell #pane-inicio { display: flex; }
+    #tab-inicio:checked ~ .shell label[for="tab-inicio"] { color: var(--gold); border-bottom: 3px solid var(--gold); background: rgba(245,200,66,0.07); }
+    #tab-historia:checked ~ .shell #pane-historia { display: block; }
+    #tab-historia:checked ~ .shell label[for="tab-historia"] { color: var(--gold); border-bottom: 3px solid var(--gold); background: rgba(245,200,66,0.07); }
+    #tab-clasificacion:checked ~ .shell #pane-clasificacion { display: block; }
+    #tab-clasificacion:checked ~ .shell label[for="tab-clasificacion"] { color: var(--gold); border-bottom: 3px solid var(--gold); background: rgba(245,200,66,0.07); }
+    #tab-mejores:checked ~ .shell #pane-mejores { display: block; }
+    #tab-mejores:checked ~ .shell label[for="tab-mejores"] { color: var(--gold); border-bottom: 3px solid var(--gold); background: rgba(245,200,66,0.07); }
+    #tab-estadisticas:checked ~ .shell #pane-estadisticas { display: block; }
+    #tab-estadisticas:checked ~ .shell label[for="tab-estadisticas"] { color: var(--gold); border-bottom: 3px solid var(--gold); background: rgba(245,200,66,0.07); }
+    #tab-palmares:checked ~ .shell #pane-palmares { display: block; }
+    #tab-palmares:checked ~ .shell label[for="tab-palmares"] { color: var(--gold); border-bottom: 3px solid var(--gold); background: rgba(245,200,66,0.07); }
+    #tab-fichajes:checked ~ .shell #pane-fichajes { display: block; }
+    #tab-fichajes:checked ~ .shell label[for="tab-fichajes"] { color: var(--gold); border-bottom: 3px solid var(--gold); background: rgba(245,200,66,0.07); }
+    #tab-ultimahora:checked ~ .shell #pane-ultimahora { display: block; }
+    #tab-ultimahora:checked ~ .shell label[for="tab-ultimahora"] { color: var(--gold); border-bottom: 3px solid var(--gold); background: rgba(245,200,66,0.07); }
+    #tab-presidentes:checked ~ .shell #pane-presidentes { display: block; }
+    #tab-presidentes:checked ~ .shell label[for="tab-presidentes"] { color: var(--gold); border-bottom: 3px solid var(--gold); background: rgba(245,200,66,0.07); }
+    #tab-reglamento:checked ~ .shell #pane-reglamento { display: block; }
+    #tab-reglamento:checked ~ .shell label[for="tab-reglamento"] { color: var(--gold); border-bottom: 3px solid var(--gold); background: rgba(245,200,66,0.07); }
+
+
+    /* NAV */
+    .shell nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      height: 64px;
+      background: rgba(10,10,15,0.97);
+      border-bottom: 1px solid rgba(245,200,66,0.18);
+      padding: 0 1rem;
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 3px;
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-right: 0.6rem;
+    }
+    .nav-scroll {
+      display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      flex: 1;
+    }
+    .nav-scroll::-webkit-scrollbar { display: none; }
+    .nav-btn {
+      display: block;
+      padding: 0 0.85rem;
+      height: 64px;
+      line-height: 64px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(240,237,232,0.5);
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      cursor: pointer;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    /* HERO */
     .hero-bg {
       position: absolute; inset: 0;
       background:
         radial-gradient(ellipse 80% 60% at 50% 40%, rgba(200,16,46,0.18) 0%, transparent 70%),
         radial-gradient(ellipse 50% 80% at 10% 90%, rgba(245,200,66,0.10) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 60% at 90% 10%, rgba(245,200,66,0.08) 0%, transparent 60%),
         var(--dark);
     }
-
     .pitch-lines {
-      position: absolute; inset: 0;
-      opacity: 0.04;
+      position: absolute; inset: 0; opacity: 0.04;
       background-image:
         repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(255,255,255,0.6) 60px),
         repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(255,255,255,0.6) 60px);
     }
-
     .hero-badge {
       position: relative;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 4px;
-      font-weight: 600;
-      color: var(--gold);
-      border: 1px solid rgba(245,200,66,0.35);
-      padding: 0.4rem 1.2rem;
-      margin-bottom: 2rem;
-      text-transform: uppercase;
+      font-size: 0.7rem; letter-spacing: 4px; font-weight: 600;
+      color: var(--gold); border: 1px solid rgba(245,200,66,0.35);
+      padding: 0.4rem 1.2rem; margin-bottom: 2rem; text-transform: uppercase;
     }
-
     .hero-title {
       position: relative;
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(5rem, 14vw, 12rem);
-      line-height: 0.9;
-      letter-spacing: 4px;
-      text-align: center;
-      color: var(--light);
+      font-size: clamp(5rem,14vw,12rem); line-height: 0.9;
+      letter-spacing: 4px; text-align: center; color: var(--light);
     }
-
-    .hero-title span {
-      color: var(--gold);
-      text-shadow: 0 0 60px rgba(245,200,66,0.5), 0 0 120px rgba(245,200,66,0.2);
-    }
-
+    .hero-title span { color: var(--gold); text-shadow: 0 0 60px rgba(245,200,66,0.5); }
     .hero-subtitle {
       position: relative;
       font-family: 'Barlow Condensed', sans-serif;
-      font-size: clamp(1.1rem, 3vw, 1.6rem);
-      font-weight: 300;
-      letter-spacing: 8px;
-      text-transform: uppercase;
-      color: rgba(240,237,232,0.45);
-      margin-top: 1.2rem;
+      font-size: clamp(1.1rem,3vw,1.6rem); font-weight: 300;
+      letter-spacing: 8px; text-transform: uppercase;
+      color: rgba(240,237,232,0.45); margin-top: 1.2rem;
     }
-
     .hero-welcome {
       position: relative;
       font-family: 'Anton', sans-serif;
-      font-size: clamp(1.4rem, 4vw, 2.6rem);
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--gold);
-      text-shadow: 0 0 30px rgba(245,200,66,0.5), 0 2px 0 rgba(0,0,0,0.4);
+      font-size: clamp(1.4rem,4vw,2.6rem); letter-spacing: 4px;
+      text-transform: uppercase; color: var(--gold);
+      text-shadow: 0 0 30px rgba(245,200,66,0.5);
       margin-top: 2.5rem;
     }
-
     .players-band {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
       background: linear-gradient(90deg, transparent, var(--gold), var(--red), var(--gold), transparent);
     }
 
-    /* ── SECCIONES COMUNES ── */
-    .section-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 5rem 2rem 4rem;
-    }
-
-    .section-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.6rem;
-    }
-
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 6vw, 5rem);
-      line-height: 1;
-      letter-spacing: 2px;
-      color: var(--light);
-      margin-bottom: 3rem;
-    }
-
-    .divider {
-      width: 60px; height: 3px;
-      background: var(--gold);
-      margin-bottom: 3rem;
-    }
-
-    /* ── HISTORIA ── */
-    #historia { background: var(--dark2); }
-
-    .historia-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-    }
-
-    .historia-text p {
-      font-size: 1rem;
-      line-height: 1.8;
-      color: rgba(240,237,232,0.7);
-      margin-bottom: 1.4rem;
-    }
-    .historia-text p strong { color: var(--gold); }
-
-    .historia-stat-box {
-      background: var(--dark3);
-      border: 1px solid rgba(245,200,66,0.12);
-      padding: 2rem;
-    }
-
-    .stat-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
-    .stat-row:last-child { border-bottom: none; }
-
-    .stat-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gray);
-    }
-
-    .stat-value {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      color: var(--gold);
-    }
-
-    /* ── CLASIFICACIÓN ── */
-    #clasificacion { background: var(--dark); }
-
-    .tabla { width: 100%; border-collapse: collapse; }
-
-    .tabla thead tr { border-bottom: 2px solid var(--gold); }
-
-    .tabla thead th {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gold);
-      padding: 0.8rem 1rem;
-      text-align: left;
-      font-weight: 600;
-    }
-
-    .tabla tbody tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
-
-    .tabla tbody td {
-      padding: 1rem;
-      font-size: 0.92rem;
-      color: rgba(240,237,232,0.8);
-    }
-
-    .pos-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem;
-      color: var(--gray);
-    }
-
-    .player-name-cell {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .pts-cell {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      color: var(--light);
-      text-align: center;
-    }
-
-    .arrow-up   { color: #22c55e; font-size: 1.5rem; }
-    .arrow-down { color: var(--red); font-size: 1.5rem; }
-
-    /* ── MEJORES JUGADORES ── */
-    #mejores { background: var(--dark2); }
-
-    .players-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-    }
-
-    .player-card {
-      background: var(--dark3);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-top: 3px solid var(--gold);
-      padding: 1.8rem 1.5rem;
-    }
-
-    .card-avatar {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      background: var(--dark);
-      border: 2px solid rgba(245,200,66,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
-
-    .card-pos {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.4rem;
-    }
-
-    .card-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--light);
-      margin-bottom: 1rem;
-    }
-
-    .card-stat-main {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.6rem;
-      line-height: 1;
-      color: var(--gold);
-    }
-
-    .card-stat-label {
-      font-size: 0.68rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-top: 0.2rem;
-    }
-
-    /* ── ESTADÍSTICAS ── */
-    #estadisticas { background: var(--dark); }
-
-    .stats-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-
-    .stat-card {
-      background: var(--dark3);
-      border: 1px solid rgba(255,255,255,0.07);
-      padding: 2rem;
-    }
-
-    .stat-card-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.5rem;
-    }
-
-    .bar-row {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .bar-name {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: rgba(240,237,232,0.75);
-      width: 60px;
-      flex-shrink: 0;
-    }
-
-    .bar-track {
-      flex: 1; height: 6px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 3px;
-    }
-
-    .bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--gold-dark), var(--gold));
-      border-radius: 3px;
-    }
-
-    .bar-val {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem;
-      color: var(--gold);
-      width: 20px;
-      text-align: right;
-      flex-shrink: 0;
-    }
-
-    .big-stat-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .big-stat {
-      background: var(--dark);
-      padding: 1.5rem;
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .big-stat-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem;
-      line-height: 1;
-      color: var(--gold);
-    }
-
-    .big-stat-desc {
-      font-size: 0.75rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-top: 0.3rem;
-    }
-
-
-    /* ── PALMARÉS ── */
-    #palmares { background: var(--dark2); }
-
-    .palmares-intro {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.05rem;
-      color: var(--gray);
-      letter-spacing: 1px;
-      margin-bottom: 3.5rem;
-    }
-
-    .palmares-podium {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-      max-width: 700px;
-    }
-
-    .palmares-card {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      background: var(--dark3);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-left: 4px solid var(--gold);
-      padding: 2rem 2.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .palmares-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 60% 80% at 0% 50%, rgba(245,200,66,0.05) 0%, transparent 70%);
-    }
-
-    .palmares-rank {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 4rem;
-      line-height: 1;
-      color: rgba(245,200,66,0.15);
-      position: relative;
-      flex-shrink: 0;
-      width: 50px;
-    }
-
-    .palmares-trophies {
-      display: flex;
-      gap: 0.5rem;
-      flex-shrink: 0;
-    }
-
-    .trophy {
-      font-size: 2rem;
-      filter: drop-shadow(0 0 8px rgba(245,200,66,0.6));
-    }
-
-    .palmares-info {
-      flex: 1;
-      position: relative;
-    }
-
-    .palmares-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
-      letter-spacing: 2px;
-      color: var(--light);
-      line-height: 1;
-      margin-bottom: 0.3rem;
-    }
-
-    .palmares-desc {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    .palmares-count {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3.5rem;
-      color: var(--gold);
-      line-height: 1;
-      text-align: right;
-      flex-shrink: 0;
-      text-shadow: 0 0 20px rgba(245,200,66,0.3);
-      position: relative;
-    }
-
-    .palmares-count-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gray);
-      text-align: right;
-      position: relative;
-    }
-
-    .palmares-total {
-      margin-top: 3.5rem;
-      padding: 2rem;
-      background: var(--dark3);
-      border: 1px solid rgba(245,200,66,0.12);
-      display: inline-flex;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .palmares-total-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 4rem;
-      color: var(--gold);
-      line-height: 1;
-    }
-
-    .palmares-total-text {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gray);
-    }
-
-
-    /* ── FICHAJES ── */
-    #fichajes { background: var(--dark); }
-
-    .fichajes-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-bottom: 4rem;
-    }
-
-    .equipo-card {
-      background: var(--dark3);
-      border: 1px solid rgba(255,255,255,0.07);
-      overflow: hidden;
-    }
-
-    .equipo-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.2rem 1.5rem;
-      background: rgba(245,200,66,0.06);
-      border-bottom: 1px solid rgba(245,200,66,0.12);
-    }
-
-    .equipo-avatar {
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      background: var(--dark);
-      border: 2px solid rgba(245,200,66,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem;
-      color: var(--gold);
-      flex-shrink: 0;
-    }
-
-    .equipo-nombre {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: var(--light);
-    }
-
-    .equipo-badge {
-      margin-left: auto;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid rgba(245,200,66,0.3);
-      padding: 0.2rem 0.6rem;
-    }
-
-    .movimiento {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.9rem 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .movimiento:last-child { border-bottom: none; }
-
-    .mov-icono {
-      font-size: 1rem;
-      flex-shrink: 0;
-      width: 20px;
-      text-align: center;
-    }
-
-    .mov-jugador {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--light);
-      flex: 1;
-    }
-
-    .mov-pos {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--gray);
-    }
-
-    .mov-tipo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.68rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 0.2rem 0.5rem;
-      border-radius: 2px;
-      flex-shrink: 0;
-    }
-
-    .mov-tipo.entrada {
-      background: rgba(34,197,94,0.12);
-      color: #22c55e;
-      border: 1px solid rgba(34,197,94,0.25);
-    }
-
-    .mov-tipo.salida {
-      background: rgba(200,16,46,0.12);
-      color: #f87171;
-      border: 1px solid rgba(200,16,46,0.25);
-    }
-
-    .mov-tipo.renovacion {
-      background: rgba(245,200,66,0.1);
-      color: var(--gold);
-      border: 1px solid rgba(245,200,66,0.25);
-    }
-
-    /* Robos */
-    .robos-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      letter-spacing: 2px;
-      color: var(--light);
-      margin-bottom: 0.5rem;
-    }
-
-    .robos-sub {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 2rem;
-    }
-
-    .robo-card {
-      background: var(--dark3);
-      border: 1px solid rgba(200,16,46,0.2);
-      border-left: 4px solid var(--red);
-      padding: 1.5rem 2rem;
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .robo-emoji { font-size: 1.8rem; flex-shrink: 0; }
-
-    .robo-jugador {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 1px;
-      color: var(--light);
-      flex: 1;
-      min-width: 140px;
-    }
-
-    .robo-flecha {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .robo-de {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #f87171;
-      letter-spacing: 1px;
-    }
-
-    .robo-a {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #22c55e;
-      letter-spacing: 1px;
-    }
-
-    .robo-arrow {
-      color: var(--gold);
-      font-size: 1.2rem;
-    }
-
-    .robo-nota {
-      font-family: 'Barlow', sans-serif;
-      font-size: 0.78rem;
-      color: var(--gray);
-      font-style: italic;
-      width: 100%;
-      margin-top: 0.3rem;
-      padding-left: 3.3rem;
-    }
-
-    .empty-state {
-      padding: 2rem;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.9rem;
-      letter-spacing: 1px;
-      color: var(--gray);
-      text-align: center;
-      border: 1px dashed rgba(255,255,255,0.08);
-    }
-
-    @media (max-width: 800px) {
-      .fichajes-layout { grid-template-columns: 1fr; }
-    }
-
-
-    /* ── ÚLTIMA HORA ── */
-    #ultimahora { background: var(--dark2); }
-
-    .uh-breaking {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      background: var(--red);
-      padding: 0.35rem 1rem;
-      margin-bottom: 3rem;
-    }
-
-    .uh-breaking-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: white;
-      animation: blink 1.2s infinite;
-    }
-
-    .uh-breaking-text {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: white;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.2; }
-    }
-
-    .noticia-principal {
-      background: var(--dark3);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-top: 4px solid var(--gold);
-      overflow: hidden;
-      margin-bottom: 2rem;
-      max-width: 820px;
-    }
-
-    .noticia-imagen {
-      width: 100%;
-      height: 200px;
-      background:
-        radial-gradient(ellipse 70% 80% at 30% 50%, rgba(245,200,66,0.15) 0%, transparent 60%),
-        radial-gradient(ellipse 50% 60% at 80% 30%, rgba(200,16,46,0.12) 0%, transparent 60%),
-        var(--dark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 5rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .noticia-imagen::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg, transparent, transparent 3px,
-        rgba(0,0,0,0.08) 3px, rgba(0,0,0,0.08) 4px
-      );
-    }
-
-    .noticia-body { padding: 2rem 2.5rem 2.5rem; }
-
-    .noticia-categoria {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.8rem;
-    }
-
-    .noticia-titular {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      line-height: 1.05;
-      letter-spacing: 1px;
-      color: var(--light);
-      margin-bottom: 1.2rem;
-    }
-
-    .noticia-titular span { color: var(--gold); }
-
-    .noticia-texto {
-      font-size: 0.98rem;
-      line-height: 1.8;
-      color: rgba(240,237,232,0.7);
-      margin-bottom: 1.5rem;
-    }
-
-    .noticia-texto strong { color: var(--light); }
-
-    .noticia-meta {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid rgba(255,255,255,0.06);
-    }
-
-    .noticia-fecha {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gray);
-    }
-
-    .noticia-tag {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gold);
-      border: 1px solid rgba(245,200,66,0.3);
-      padding: 0.2rem 0.6rem;
-    }
-
-    .uh-sidebar-title {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--gold);
-      border-bottom: 1px solid rgba(245,200,66,0.2);
-      padding-bottom: 0.8rem;
-      margin-bottom: 1.2rem;
-    }
-
-    .uh-mini {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-      padding: 1rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .uh-mini:last-child { border-bottom: none; }
-
-    .uh-mini-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--gray);
-      margin-top: 0.4rem;
-      flex-shrink: 0;
-    }
-
-    .uh-mini-text {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.9rem;
-      color: rgba(240,237,232,0.6);
-      line-height: 1.4;
-    }
-
-    .uh-layout {
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 2.5rem;
-      align-items: start;
-    }
-
-    @media (max-width: 800px) {
-      .uh-layout { grid-template-columns: 1fr; }
-    }
-
-
-    /* ── PRESIDENTES ── */
-    #presidentes { background: var(--dark); }
-
-    .presidentes-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.8rem;
-      margin-bottom: 3rem;
-    }
-
-    .pres-card {
-      background: var(--dark3);
-      border: 1px solid rgba(255,255,255,0.07);
-      overflow: hidden;
-      position: relative;
-      transition: transform 0.3s;
-    }
-
-    .pres-card:hover { transform: translateY(-4px); }
-
-    .pres-banner {
-      height: 90px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.8rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .pres-banner::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.25);
-    }
-
-    .pres-banner-emoji {
-      position: relative;
-      z-index: 1;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
-    }
-
-    .pres-body { padding: 1.5rem; }
-
-    .pres-rol {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 0.4rem;
-    }
-
-    .pres-nombre {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.7rem;
-      letter-spacing: 1px;
-      color: var(--light);
-      line-height: 1;
-      margin-bottom: 0.3rem;
-    }
-
-    .pres-equipo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.78rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 1rem;
-    }
-
-    .pres-divider {
-      height: 1px;
-      background: rgba(255,255,255,0.06);
-      margin-bottom: 1rem;
-    }
-
-    .pres-desc {
-      font-size: 0.88rem;
-      line-height: 1.65;
-      color: rgba(240,237,232,0.65);
-    }
-
-    .pres-desc strong { color: var(--light); }
-
-    .pres-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-top: 1rem;
-    }
-
-    .pres-tag {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.62rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 0.2rem 0.55rem;
-      border-radius: 2px;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(240,237,232,0.5);
-    }
-
-    /* Defensor del Pueblo — card especial full width */
-    .defensor-card {
-      background: var(--dark3);
-      border: 1px solid rgba(167,118,255,0.25);
-      border-top: 4px solid #a776ff;
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 2rem;
-      padding: 2.5rem;
-      align-items: center;
-      max-width: 820px;
-      margin: 0 auto;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .defensor-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 50% 80% at 10% 50%, rgba(167,118,255,0.07) 0%, transparent 60%);
-    }
-
-    .defensor-icon {
-      font-size: 4rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .defensor-content { position: relative; z-index: 1; }
-
-    .defensor-badge {
-      display: inline-block;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: #a776ff;
-      border: 1px solid rgba(167,118,255,0.4);
-      padding: 0.2rem 0.7rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .defensor-nombre {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 2.4rem;
-      letter-spacing: 2px;
-      color: var(--light);
-      line-height: 1;
-      margin-bottom: 0.3rem;
-    }
-
-    .defensor-titulo {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: #a776ff;
-      margin-bottom: 1rem;
-    }
-
-    .defensor-desc {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: rgba(240,237,232,0.7);
-    }
-
-    .defensor-desc strong { color: var(--light); }
-
-    .presidentes-section-label {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.5rem;
-      margin-top: 3.5rem;
-    }
-
-    @media (max-width: 900px) {
-      .presidentes-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 540px) {
-      .presidentes-grid { grid-template-columns: 1fr; }
-      .defensor-card { grid-template-columns: 1fr; text-align: center; }
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 2.5rem;
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.15);
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    footer span { color: var(--gold); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 800px) {
-      .historia-grid, .stats-layout { grid-template-columns: 1fr; }
-      .players-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 480px) {
-      nav { padding: 0 0.8rem; }
-      .nav-links li a { padding: 0 0.6rem; font-size: 0.7rem; letter-spacing: 1px; }
-    }
+    /* SECTIONS */
+    .section-inner { max-width:1100px; margin:0 auto; padding:5rem 2rem 4rem; }
+    .section-label { font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:0.6rem; }
+    .section-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(3rem,6vw,5rem); line-height:1; letter-spacing:2px; color:var(--light); margin-bottom:3rem; }
+    .divider { width:60px; height:3px; background:var(--gold); margin-bottom:3rem; }
+
+    /* HISTORIA */
+    #pane-historia { background:var(--dark2); }
+    .historia-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+    .historia-text p { font-size:1rem; line-height:1.8; color:rgba(240,237,232,0.7); margin-bottom:1.4rem; }
+    .historia-text p strong { color:var(--gold); }
+    .historia-stat-box { background:var(--dark3); border:1px solid rgba(245,200,66,0.12); padding:2rem; }
+    .stat-row { display:flex; justify-content:space-between; align-items:center; padding:1rem 0; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .stat-row:last-child { border-bottom:none; }
+    .stat-label { font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--gray); }
+    .stat-value { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; color:var(--gold); }
+
+    /* CLASIFICACION */
+    #pane-clasificacion { background:var(--dark); }
+    .tabla { width:100%; border-collapse:collapse; }
+    .tabla thead tr { border-bottom:2px solid var(--gold); }
+    .tabla thead th { font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold); padding:0.8rem 1rem; text-align:left; font-weight:600; }
+    .tabla tbody tr { border-bottom:1px solid rgba(255,255,255,0.05); }
+    .tabla tbody td { padding:1rem; font-size:0.92rem; color:rgba(240,237,232,0.8); }
+    .pos-num { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; color:var(--gray); }
+    .player-name-cell { font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:600; }
+    .pts-cell { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--light); text-align:center; }
+    .arrow-up { color:#22c55e; font-size:1.5rem; }
+    .arrow-down { color:var(--red); font-size:1.5rem; }
+
+    /* MEJORES */
+    #pane-mejores { background:var(--dark2); }
+    .players-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; }
+    .player-card { background:var(--dark3); border:1px solid rgba(255,255,255,0.07); border-top:3px solid var(--gold); padding:1.8rem 1.5rem; }
+    .card-avatar { width:44px; height:44px; border-radius:50%; background:var(--dark); border:2px solid rgba(245,200,66,0.3); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:var(--gold); margin-bottom:1rem; }
+    .card-pos { font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem; }
+    .card-name { font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; font-weight:700; color:var(--light); margin-bottom:1rem; }
+    .card-stat-main { font-family:'Bebas Neue',sans-serif; font-size:2.6rem; line-height:1; color:var(--gold); }
+    .card-stat-label { font-size:0.68rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gray); margin-top:0.2rem; }
+
+    /* ESTADISTICAS */
+    #pane-estadisticas { background:var(--dark); }
+    .stats-layout { display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+    .stat-card { background:var(--dark3); border:1px solid rgba(255,255,255,0.07); padding:2rem; }
+    .stat-card-title { font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:1.5rem; }
+    .bar-row { display:flex; align-items:center; gap:0.8rem; margin-bottom:0.9rem; }
+    .bar-name { font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; font-weight:600; color:rgba(240,237,232,0.75); width:60px; flex-shrink:0; }
+    .bar-track { flex:1; height:6px; background:rgba(255,255,255,0.06); border-radius:3px; }
+    .bar-fill { height:100%; background:linear-gradient(90deg,var(--gold-dark),var(--gold)); border-radius:3px; }
+    .bar-val { font-family:'Bebas Neue',sans-serif; font-size:1rem; color:var(--gold); width:20px; text-align:right; flex-shrink:0; }
+    .big-stat-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .big-stat { background:var(--dark); padding:1.5rem; border:1px solid rgba(255,255,255,0.05); }
+    .big-stat-num { font-family:'Bebas Neue',sans-serif; font-size:3rem; line-height:1; color:var(--gold); }
+    .big-stat-desc { font-size:0.75rem; letter-spacing:1px; text-transform:uppercase; color:var(--gray); margin-top:0.3rem; }
+
+    /* PALMARES */
+    #pane-palmares { background:var(--dark2); }
+    .palmares-intro { font-family:'Barlow Condensed',sans-serif; font-size:1.05rem; color:var(--gray); letter-spacing:1px; margin-bottom:3.5rem; }
+    .palmares-podium { display:flex; flex-direction:column; gap:2rem; max-width:700px; }
+    .palmares-card { display:flex; align-items:center; gap:2rem; background:var(--dark3); border:1px solid rgba(255,255,255,0.07); border-left:4px solid var(--gold); padding:2rem 2.5rem; position:relative; overflow:hidden; }
+    .palmares-card::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 0% 50%, rgba(245,200,66,0.05) 0%, transparent 70%); }
+    .palmares-rank { font-family:'Bebas Neue',sans-serif; font-size:4rem; line-height:1; color:rgba(245,200,66,0.15); position:relative; flex-shrink:0; width:50px; }
+    .palmares-trophies { display:flex; gap:0.5rem; flex-shrink:0; }
+    .trophy { font-size:2rem; filter:drop-shadow(0 0 8px rgba(245,200,66,0.6)); }
+    .palmares-info { flex:1; position:relative; }
+    .palmares-name { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:2px; color:var(--light); line-height:1; margin-bottom:0.3rem; }
+    .palmares-desc { font-family:'Barlow Condensed',sans-serif; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold); }
+    .palmares-count { font-family:'Bebas Neue',sans-serif; font-size:3.5rem; color:var(--gold); line-height:1; text-align:right; flex-shrink:0; text-shadow:0 0 20px rgba(245,200,66,0.3); position:relative; }
+    .palmares-count-label { font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--gray); text-align:right; position:relative; }
+    .palmares-total { margin-top:3.5rem; padding:2rem; background:var(--dark3); border:1px solid rgba(245,200,66,0.12); display:inline-flex; align-items:center; gap:2rem; }
+    .palmares-total-num { font-family:'Bebas Neue',sans-serif; font-size:4rem; color:var(--gold); line-height:1; }
+    .palmares-total-text { font-family:'Barlow Condensed',sans-serif; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; color:var(--gray); }
+
+    /* FICHAJES */
+    #pane-fichajes { background:var(--dark); }
+    .fichajes-layout { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:4rem; }
+    .equipo-card { background:var(--dark3); border:1px solid rgba(255,255,255,0.07); overflow:hidden; }
+    .equipo-header { display:flex; align-items:center; gap:1rem; padding:1.2rem 1.5rem; background:rgba(245,200,66,0.06); border-bottom:1px solid rgba(245,200,66,0.12); }
+    .equipo-avatar { width:38px; height:38px; border-radius:50%; background:var(--dark); border:2px solid rgba(245,200,66,0.4); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue',sans-serif; font-size:1rem; color:var(--gold); flex-shrink:0; }
+    .equipo-nombre { font-family:'Barlow Condensed',sans-serif; font-size:1.05rem; font-weight:700; letter-spacing:1px; color:var(--light); }
+    .empty-state { padding:2rem; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; letter-spacing:1px; color:var(--gray); text-align:center; border:1px dashed rgba(255,255,255,0.08); }
+    .robos-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,4vw,3rem); letter-spacing:2px; color:var(--light); margin-bottom:0.5rem; }
+    .robos-sub { font-family:'Barlow Condensed',sans-serif; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; color:var(--gray); margin-bottom:2rem; }
+
+    /* ULTIMA HORA */
+    #pane-ultimahora { background:var(--dark2); }
+    .uh-breaking { display:inline-flex; align-items:center; gap:0.6rem; background:var(--red); padding:0.35rem 1rem; margin-bottom:3rem; }
+    .uh-breaking-dot { width:8px; height:8px; border-radius:50%; background:white; animation:blink 1.2s infinite; }
+    .uh-breaking-text { font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:white; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+    .noticia-principal { background:var(--dark3); border:1px solid rgba(255,255,255,0.07); border-top:4px solid var(--red); overflow:hidden; margin-bottom:2rem; max-width:820px; }
+    .noticia-imagen { width:100%; height:200px; background:radial-gradient(ellipse 70% 80% at 30% 50%, rgba(245,200,66,0.15) 0%, transparent 60%), var(--dark); display:flex; align-items:center; justify-content:center; font-size:5rem; position:relative; }
+    .noticia-body { padding:2rem 2.5rem 2.5rem; }
+    .noticia-categoria { font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:0.8rem; }
+    .noticia-titular { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.8rem,4vw,2.8rem); line-height:1.05; letter-spacing:1px; color:var(--light); margin-bottom:1.2rem; }
+    .noticia-titular span { color:var(--gold); }
+    .noticia-texto { font-size:0.98rem; line-height:1.8; color:rgba(240,237,232,0.7); margin-bottom:1.5rem; }
+    .noticia-meta { display:flex; align-items:center; gap:1.5rem; padding-top:1.2rem; border-top:1px solid rgba(255,255,255,0.06); }
+    .noticia-fecha { font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; color:var(--gray); }
+    .noticia-tag { font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold); border:1px solid rgba(245,200,66,0.3); padding:0.2rem 0.6rem; }
+    .uh-layout { display:grid; grid-template-columns:1fr 280px; gap:2.5rem; align-items:start; }
+    .uh-sidebar-title { font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); border-bottom:1px solid rgba(245,200,66,0.2); padding-bottom:0.8rem; margin-bottom:1.2rem; }
+    .uh-mini { display:flex; gap:1rem; align-items:flex-start; padding:1rem 0; border-bottom:1px solid rgba(255,255,255,0.05); }
+    .uh-mini:last-child { border-bottom:none; }
+    .uh-mini-dot { width:6px; height:6px; border-radius:50%; background:var(--gray); margin-top:0.4rem; flex-shrink:0; }
+    .uh-mini-text { font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; color:rgba(240,237,232,0.6); line-height:1.4; }
+
+    /* PRESIDENTES */
+    #pane-presidentes { background:var(--dark); }
+    .presidentes-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.8rem; margin-bottom:3rem; }
+    .pres-card { background:var(--dark3); border:1px solid rgba(255,255,255,0.07); overflow:hidden; }
+    .pres-banner { height:90px; display:flex; align-items:center; justify-content:center; font-size:2.8rem; position:relative; overflow:hidden; }
+    .pres-banner::after { content:''; position:absolute; inset:0; background:rgba(0,0,0,0.25); }
+    .pres-banner-emoji { position:relative; z-index:1; }
+    .pres-body { padding:1.5rem; }
+    .pres-rol { font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:0.4rem; }
+    .pres-nombre { font-family:'Bebas Neue',sans-serif; font-size:1.7rem; letter-spacing:1px; color:var(--light); line-height:1; margin-bottom:0.3rem; }
+    .pres-equipo { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; letter-spacing:2px; text-transform:uppercase; color:var(--gray); margin-bottom:1rem; }
+    .pres-divider { height:1px; background:rgba(255,255,255,0.06); margin-bottom:1rem; }
+    .pres-desc { font-size:0.88rem; line-height:1.65; color:rgba(240,237,232,0.65); }
+    .pres-desc strong { color:var(--light); }
+    .pres-tags { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1rem; }
+    .pres-tag { font-family:'Barlow Condensed',sans-serif; font-size:0.62rem; letter-spacing:1.5px; text-transform:uppercase; padding:0.2rem 0.55rem; border-radius:2px; border:1px solid rgba(255,255,255,0.1); color:rgba(240,237,232,0.5); }
+    .defensor-card { background:var(--dark3); border:1px solid rgba(167,118,255,0.25); border-top:4px solid #a776ff; display:grid; grid-template-columns:auto 1fr; gap:2rem; padding:2.5rem; align-items:center; max-width:820px; margin:0 auto; position:relative; overflow:hidden; }
+    .defensor-card::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 50% 80% at 10% 50%, rgba(167,118,255,0.07) 0%, transparent 60%); }
+    .defensor-icon { font-size:4rem; position:relative; z-index:1; }
+    .defensor-content { position:relative; z-index:1; }
+    .defensor-badge { display:inline-block; font-family:'Barlow Condensed',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:#a776ff; border:1px solid rgba(167,118,255,0.4); padding:0.2rem 0.7rem; margin-bottom:0.8rem; }
+    .defensor-nombre { font-family:'Bebas Neue',sans-serif; font-size:2.4rem; letter-spacing:2px; color:var(--light); line-height:1; margin-bottom:0.3rem; }
+    .defensor-titulo { font-family:'Barlow Condensed',sans-serif; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; color:#a776ff; margin-bottom:1rem; }
+    .defensor-desc { font-size:0.95rem; line-height:1.7; color:rgba(240,237,232,0.7); }
+    .defensor-desc strong { color:var(--light); }
+    .presidentes-section-label { font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:1.5rem; margin-top:3.5rem; }
+
+    /* REGLAMENTO */
+    #pane-reglamento { background:var(--dark); }
+    .reg-hero { background:linear-gradient(135deg,rgba(200,16,46,0.12),rgba(245,200,66,0.08)); border:1px solid rgba(245,200,66,0.15); padding:3rem; text-align:center; margin-bottom:4rem; position:relative; overflow:hidden; }
+    .reg-hero::before { content:'⚖️'; position:absolute; font-size:12rem; opacity:0.04; top:50%; left:50%; transform:translate(-50%,-50%); }
+    .reg-hero-badge { font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; letter-spacing:4px; text-transform:uppercase; color:var(--gold); border:1px solid rgba(245,200,66,0.3); padding:0.3rem 1rem; display:inline-block; margin-bottom:1.2rem; }
+    .reg-hero-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,5vw,4rem); letter-spacing:3px; color:var(--light); margin-bottom:0.8rem; }
+    .reg-hero-title span { color:var(--gold); }
+    .reg-hero-norma { font-family:'Anton',sans-serif; font-size:clamp(1rem,2.5vw,1.5rem); letter-spacing:3px; text-transform:uppercase; color:var(--red); margin-top:1.5rem; padding:1rem 2rem; border:2px solid rgba(200,16,46,0.4); display:inline-block; background:rgba(200,16,46,0.06); }
+    .principios-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-bottom:4rem; }
+    .principio-card { background:var(--dark3); border:1px solid rgba(255,255,255,0.07); border-top:3px solid var(--gold); padding:1.5rem; text-align:center; }
+    .principio-icon { font-size:2rem; margin-bottom:0.8rem; }
+    .principio-title { font-family:'Bebas Neue',sans-serif; font-size:1.2rem; letter-spacing:2px; color:var(--gold); margin-bottom:0.5rem; }
+    .principio-desc { font-size:0.82rem; line-height:1.6; color:rgba(240,237,232,0.6); }
+    .reg-section { margin-bottom:3rem; }
+    .reg-section-header { display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:0.8rem; border-bottom:1px solid rgba(245,200,66,0.2); }
+    .reg-section-num { font-family:'Bebas Neue',sans-serif; font-size:2.5rem; color:rgba(245,200,66,0.25); line-height:1; flex-shrink:0; }
+    .reg-section-title { font-family:'Bebas Neue',sans-serif; font-size:1.6rem; letter-spacing:2px; color:var(--light); }
+    .reg-section-icon { font-size:1.4rem; flex-shrink:0; }
+    .reg-text { font-size:0.92rem; line-height:1.8; color:rgba(240,237,232,0.7); margin-bottom:1rem; }
+    .reg-text strong { color:var(--light); }
+    .reg-dos-col { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin:1.5rem 0; }
+    .reg-permitido { background:rgba(34,197,94,0.05); border:1px solid rgba(34,197,94,0.2); border-left:3px solid #22c55e; padding:1.2rem 1.5rem; }
+    .reg-prohibido { background:rgba(200,16,46,0.05); border:1px solid rgba(200,16,46,0.2); border-left:3px solid var(--red); padding:1.2rem 1.5rem; }
+    .reg-col-title { font-family:'Barlow Condensed',sans-serif; font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; margin-bottom:0.8rem; font-weight:700; }
+    .reg-col-title.green { color:#22c55e; }
+    .reg-col-title.red { color:var(--red); }
+    .reg-list { list-style:none; padding:0; }
+    .reg-list li { font-size:0.85rem; color:rgba(240,237,232,0.65); padding:0.3rem 0 0.3rem 1.2rem; position:relative; line-height:1.5; }
+    .reg-list li::before { position:absolute; left:0; }
+    .reg-permitido .reg-list li::before { content:'✓'; color:#22c55e; }
+    .reg-prohibido .reg-list li::before { content:'✗'; color:var(--red); }
+    .sanciones-tabla { width:100%; border-collapse:collapse; margin:1.5rem 0; font-size:0.82rem; }
+    .sanciones-tabla thead tr { background:rgba(245,200,66,0.08); border-bottom:2px solid var(--gold); }
+    .sanciones-tabla thead th { font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; letter-spacing:2px; text-transform:uppercase; color:var(--gold); padding:0.8rem 1rem; text-align:left; }
+    .sanciones-tabla tbody tr { border-bottom:1px solid rgba(255,255,255,0.04); }
+    .sanciones-tabla tbody td { padding:0.7rem 1rem; color:rgba(240,237,232,0.7); vertical-align:middle; }
+    .badge-leve { display:inline-block; font-family:'Barlow Condensed',sans-serif; font-size:0.62rem; letter-spacing:1px; text-transform:uppercase; padding:0.15rem 0.5rem; background:rgba(245,200,66,0.1); border:1px solid rgba(245,200,66,0.3); color:var(--gold); }
+    .badge-grave { display:inline-block; font-family:'Barlow Condensed',sans-serif; font-size:0.62rem; letter-spacing:1px; text-transform:uppercase; padding:0.15rem 0.5rem; background:rgba(255,100,0,0.1); border:1px solid rgba(255,100,0,0.3); color:#ff9944; }
+    .badge-muygrave { display:inline-block; font-family:'Barlow Condensed',sans-serif; font-size:0.62rem; letter-spacing:1px; text-transform:uppercase; padding:0.15rem 0.5rem; background:rgba(200,16,46,0.1); border:1px solid rgba(200,16,46,0.3); color:#f87171; }
+    .faltas-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin:1.5rem 0; }
+    .falta-card { padding:1.5rem; border:1px solid rgba(255,255,255,0.07); }
+    .falta-card.leve { background:rgba(245,200,66,0.04); border-top:3px solid var(--gold); }
+    .falta-card.grave { background:rgba(255,100,0,0.04); border-top:3px solid #ff9944; }
+    .falta-card.muygrave { background:rgba(200,16,46,0.04); border-top:3px solid var(--red); }
+    .falta-card-title { font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:2px; margin-bottom:0.4rem; }
+    .falta-card.leve .falta-card-title { color:var(--gold); }
+    .falta-card.grave .falta-card-title { color:#ff9944; }
+    .falta-card.muygrave .falta-card-title { color:#f87171; }
+    .falta-sancion { font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gray); margin-bottom:1rem; }
+    .falta-ejemplos { font-size:0.8rem; color:rgba(240,237,232,0.55); line-height:1.6; }
+    .reg-final { background:linear-gradient(135deg,rgba(200,16,46,0.1),rgba(245,200,66,0.08)); border:1px solid rgba(245,200,66,0.2); padding:3rem; text-align:center; margin-top:3rem; }
+    .reg-final-title { font-family:'Anton',sans-serif; font-size:clamp(1.2rem,3vw,2rem); letter-spacing:3px; text-transform:uppercase; color:var(--gold); margin-bottom:1.5rem; }
+    .reg-final-text { font-size:0.95rem; line-height:1.8; color:rgba(240,237,232,0.7); max-width:700px; margin:0 auto 1.5rem; }
+    .reg-final-norma { font-family:'Bebas Neue',sans-serif; font-size:clamp(1.2rem,3vw,1.8rem); letter-spacing:3px; color:var(--red); border:2px solid rgba(200,16,46,0.4); padding:1rem 2rem; display:inline-block; }
+
+    /* FOOTER */
+    footer { text-align:center; padding:2.5rem; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.15); border-top:1px solid rgba(255,255,255,0.05); }
+
+    /* RESPONSIVE */
+    @media (max-width:800px) {
+      .historia-grid, .stats-layout, .reg-dos-col, .uh-layout { grid-template-columns:1fr; }
+      .players-grid { grid-template-columns:repeat(2,1fr); }
+      .presidentes-grid { grid-template-columns:repeat(2,1fr); }
+      .principios-grid, .faltas-grid { grid-template-columns:1fr; }
+      .fichajes-layout { grid-template-columns:1fr; }
+      .defensor-card { grid-template-columns:1fr; text-align:center; }
+    }
+    @media (max-width:480px) {
+      .presidentes-grid { grid-template-columns:1fr; }
+      .players-grid { grid-template-columns:1fr 1fr; }
+    }
+  
+    input[type="radio"][name="tab"] { display:none; }
+    .tab-pane { display:none; min-height:calc(100vh - 64px); padding-top:64px; }
+    #pane-inicio { flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+  #tab-inicio:checked ~ .shell #pane-inicio { display:flex; }
+  #tab-inicio:checked ~ .shell label[for="tab-inicio"] { color:var(--gold)!important; border-bottom:3px solid var(--gold)!important; }
+  #tab-historia:checked ~ .shell #pane-historia { display:block; }
+  #tab-historia:checked ~ .shell label[for="tab-historia"] { color:var(--gold)!important; border-bottom:3px solid var(--gold)!important; }
+  #tab-clasificacion:checked ~ .shell #pane-clasificacion { display:block; }
+  #tab-clasificacion:checked ~ .shell label[for="tab-clasificacion"] { color:var(--gold)!important; border-bottom:3px solid var(--gold)!important; }
+  #tab-mejores:checked ~ .shell #pane-mejores { display:block; }
+  #tab-mejores:checked ~ .shell label[for="tab-mejores"] { color:var(--gold)!important; border-bottom:3px solid var(--gold)!important; }
+  #tab-estadisticas:checked ~ .shell #pane-estadisticas { display:block; }
+  #tab-estadisticas:checked ~ .shell label[for="tab-estadisticas"] { color:var(--gold)!important; border-bottom:3px solid var(--gold)!important; }
+  #tab-palmares:checked ~ .shell #pane-palmares { display:block; }
+  #tab-palmares:checked ~ .shell label[for="tab-palmares"] { color:var(--gold)!important; border-bottom:3px solid var(--gold)!important; }
+  #tab-fichajes:checked ~ .shell #pane-fichajes { display:block; }
+  #tab-fichajes:checked ~ .shell label[for="tab-fichajes"] { color:var(--gold)!important; border-bottom:3px solid var(--gold)!important; }
+  #tab-ultimahora:checked ~ .shell #pane-ultimahora { display:block; }
+  #tab-ultimahora:checked ~ .shell label[for="tab-ultimahora"] { color:var(--gold)!important; border-bottom:3px solid var(--gold)!important; }
+  #tab-presidentes:checked ~ .shell #pane-presidentes { display:block; }
+  #tab-presidentes:checked ~ .shell label[for="tab-presidentes"] { color:var(--gold)!important; border-bottom:3px solid var(--gold)!important; }
+  #tab-reglamento:checked ~ .shell #pane-reglamento { display:block; }
+  #tab-reglamento:checked ~ .shell label[for="tab-reglamento"] { color:var(--gold)!important; border-bottom:3px solid var(--gold)!important; }
+
+    .shell nav { position:fixed; top:0; left:0; right:0; z-index:1000; display:flex; align-items:center; height:64px; background:rgba(10,10,15,0.97); border-bottom:1px solid rgba(245,200,66,0.18); padding:0 1rem; }
+    .nav-logo { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; letter-spacing:3px; color:var(--gold); flex-shrink:0; margin-right:0.6rem; }
+    .nav-scroll { display:flex; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; flex:1; }
+    .nav-scroll::-webkit-scrollbar { display:none; }
+    .nav-btn { display:block; padding:0 0.85rem; height:64px; line-height:64px; font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:rgba(240,237,232,0.5); border-bottom:3px solid transparent; white-space:nowrap; cursor:pointer; flex-shrink:0; -webkit-tap-highlight-color:transparent; user-select:none; }
+    footer { text-align:center; padding:2.5rem; font-family:'Barlow Condensed',sans-serif; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.15); border-top:1px solid rgba(255,255,255,0.05); }
   </style>
 </head>
 <body>
+<input type="radio" name="tab" id="tab-inicio" checked>
+<input type="radio" name="tab" id="tab-historia">
+<input type="radio" name="tab" id="tab-clasificacion">
+<input type="radio" name="tab" id="tab-mejores">
+<input type="radio" name="tab" id="tab-estadisticas">
+<input type="radio" name="tab" id="tab-palmares">
+<input type="radio" name="tab" id="tab-fichajes">
+<input type="radio" name="tab" id="tab-ultimahora">
+<input type="radio" name="tab" id="tab-presidentes">
+<input type="radio" name="tab" id="tab-reglamento">
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">DL</div>
-  <ul class="nav-links">
-    <li><a href="#inicio">Inicio</a></li>
-    <li><a href="#historia">Historia</a></li>
-    <li><a href="#clasificacion">Clasificación</a></li>
-    <li><a href="#mejores">Mejores Jugadores</a></li>
-    <li><a href="#estadisticas">Estadísticas</a></li>
-    <li><a href="#palmares">Palmarés</a></li>
-    <li><a href="#fichajes">Fichajes</a></li>
-    <li><a href="#ultimahora">Última Hora</a></li>
-    <li><a href="#presidentes">Presidentes</a></li>
-  </ul>
-</nav>
+<div class="shell">
+  <nav>
+    <div class="nav-logo">DL</div>
+    <div class="nav-scroll">
+      <label for="tab-inicio" class="nav-btn">Inicio</label>
+      <label for="tab-historia" class="nav-btn">Historia</label>
+      <label for="tab-clasificacion" class="nav-btn">Clasificación</label>
+      <label for="tab-mejores" class="nav-btn">Mejores Jugadores</label>
+      <label for="tab-estadisticas" class="nav-btn">Estadísticas</label>
+      <label for="tab-palmares" class="nav-btn">Palmarés</label>
+      <label for="tab-fichajes" class="nav-btn">Fichajes</label>
+      <label for="tab-ultimahora" class="nav-btn">Última Hora</label>
+      <label for="tab-presidentes" class="nav-btn">Presidentes</label>
+      <label for="tab-reglamento" class="nav-btn">Reglamento</label>
 
-<!-- ══════════ INICIO ══════════ -->
-<div class="page" id="inicio">
-  <div class="hero-bg"></div>
+    </div>
+  </nav>
+
+  <div class="tab-pane" id="pane-inicio">
+<div class="hero-bg"></div>
   <div class="pitch-lines"></div>
   <div class="hero-badge">Marca Fantasy · Temporada 2026/27</div>
   <div class="hero-title">DELEMID<br/><span>LEAGUE</span></div>
   <div class="hero-subtitle">La Liga de los elegidos</div>
   <div class="hero-welcome">⚽ Bienvenidos a la nueva Liga ⚽</div>
   <div class="players-band"></div>
-</div>
+  </div>
 
-<!-- ══════════ HISTORIA ══════════ -->
-<div class="page" id="historia">
-  <div class="section-inner">
+  <div class="tab-pane" id="pane-historia">
+<div class="section-inner">
     <div class="section-label">Sobre nosotros</div>
     <div class="section-title">Historia</div>
     <div class="divider"></div>
@@ -1258,11 +462,10 @@
       </div>
     </div>
   </div>
-</div>
+  </div>
 
-<!-- ══════════ CLASIFICACIÓN ══════════ -->
-<div class="page" id="clasificacion">
-  <div class="section-inner">
+  <div class="tab-pane" id="pane-clasificacion">
+<div class="section-inner">
     <div class="section-label">Temporada 2026/27</div>
     <div class="section-title">Clasificación</div>
     <div class="divider"></div>
@@ -1290,11 +493,10 @@
     </table>
     <p style="margin-top:2rem;font-size:0.78rem;color:var(--gray);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;">* Clasificación actualizable cada jornada.</p>
   </div>
-</div>
+  </div>
 
-<!-- ══════════ MEJORES JUGADORES ══════════ -->
-<div class="page" id="mejores">
-  <div class="section-inner">
+  <div class="tab-pane" id="pane-mejores">
+<div class="section-inner">
     <div class="section-label">Hall of Fame</div>
     <div class="section-title">Mejores Jugadores</div>
     <div class="divider"></div>
@@ -1310,11 +512,10 @@
       <div class="player-card"><div class="card-avatar">KO</div><div class="card-pos">Defensa Central</div><div class="card-name">Konaté</div><div class="card-stat-main">0</div><div class="card-stat-label">puntos</div></div>
     </div>
   </div>
-</div>
+  </div>
 
-<!-- ══════════ ESTADÍSTICAS ══════════ -->
-<div class="page" id="estadisticas">
-  <div class="section-inner">
+  <div class="tab-pane" id="pane-estadisticas">
+<div class="section-inner">
     <div class="section-label">Datos de la temporada</div>
     <div class="section-title">Estadísticas</div>
     <div class="divider"></div>
@@ -1341,12 +542,10 @@
       </div>
     </div>
   </div>
-</div>
+  </div>
 
-
-<!-- ══════════ PALMARÉS ══════════ -->
-<div class="page" id="palmares">
-  <div class="section-inner">
+  <div class="tab-pane" id="pane-palmares">
+<div class="section-inner">
     <div class="section-label">Historia de campeones</div>
     <div class="section-title">Palmarés</div>
     <div class="divider"></div>
@@ -1414,12 +613,10 @@
     </div>
 
   </div>
-</div>
+  </div>
 
-
-<!-- ══════════ FICHAJES ══════════ -->
-<div class="page" id="fichajes">
-  <div class="section-inner">
+  <div class="tab-pane" id="pane-fichajes">
+<div class="section-inner">
     <div class="section-label">Mercado de fichajes · 2026/27</div>
     <div class="section-title">Fichajes</div>
     <div class="divider"></div>
@@ -1510,12 +707,10 @@
     </div>
 
   </div>
-</div>
+  </div>
 
-
-<!-- ══════════ ÚLTIMA HORA ══════════ -->
-<div class="page" id="ultimahora">
-  <div class="section-inner">
+  <div class="tab-pane" id="pane-ultimahora">
+<div class="section-inner">
     <div class="section-label">Noticias de la liga</div>
     <div class="section-title">Última Hora</div>
     <div class="divider"></div>
@@ -1606,12 +801,11 @@
 
     </div>
   </div>
-</div>
+    </div>
+  </div>
 
-
-<!-- ══════════ PRESIDENTES ══════════ -->
-<div class="page" id="presidentes">
-  <div class="section-inner">
+  <div class="tab-pane" id="pane-presidentes">
+<div class="section-inner">
     <div class="section-label">Los mandatarios de la Delemid</div>
     <div class="section-title">Presidentes</div>
     <div class="divider"></div>
@@ -1783,11 +977,222 @@
     </div>
 
   </div>
+  </div>
+
+  <div class="tab-pane" id="pane-reglamento">
+<div class="section-inner">
+    <div class="section-label">Normas oficiales</div>
+    <div class="section-title">Reglamento</div>
+    <div class="divider"></div>
+
+    <!-- HERO -->
+    <div class="reg-hero">
+      <div class="reg-hero-badge">⚖️ Documento oficial · Delemid League 2026/27</div>
+      <div class="reg-hero-title">REGLAMENTO OFICIAL<br/><span>DELEMID LEAGUE 2026/27</span></div>
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;letter-spacing:1px;color:rgba(240,237,232,0.55);margin-top:0.8rem;">Liga privada en MARCA Fantasy · Todos los participantes aceptan estas normas al unirse</p>
+      <div class="reg-hero-norma">Competir sí. Faltar al respeto o adulterar la liga, no.</div>
+    </div>
+
+    <!-- PRINCIPIOS -->
+    <div class="section-label">Art. 3 · Principios básicos</div>
+    <div class="section-title" style="font-size:clamp(2rem,4vw,3rem);margin-bottom:1.5rem;">Los 5 Pilares</div>
+    <div class="principios-grid" style="margin-bottom:4rem;">
+      <div class="principio-card">
+        <div class="principio-icon">🤝</div>
+        <div class="principio-title">Respeto</div>
+        <div class="principio-desc">Todos los participantes se tratan con respeto en cualquier canal relacionado con la liga.</div>
+      </div>
+      <div class="principio-card">
+        <div class="principio-icon">⚖️</div>
+        <div class="principio-title">Juego Limpio</div>
+        <div class="principio-desc">Ninguna acción que altere la competición de forma injusta será tolerada.</div>
+      </div>
+      <div class="principio-card">
+        <div class="principio-icon">🟰</div>
+        <div class="principio-title">Igualdad</div>
+        <div class="principio-desc">Todos tienen las mismas oportunidades. Nadie puede recibir ayudas o ventajas externas.</div>
+      </div>
+      <div class="principio-card">
+        <div class="principio-icon">🔥</div>
+        <div class="principio-title">Competitividad</div>
+        <div class="principio-desc">Se puede pujar, picarse, celebrar y bromear. Siempre con respeto.</div>
+      </div>
+      <div class="principio-card">
+        <div class="principio-icon">🎯</div>
+        <div class="principio-title">Responsabilidad</div>
+        <div class="principio-desc">Cada manager es responsable de sus fichajes, ventas, alineaciones y mensajes.</div>
+      </div>
+      <div class="principio-card" style="border-top-color:var(--red);background:rgba(200,16,46,0.04);">
+        <div class="principio-icon">📌</div>
+        <div class="principio-title" style="color:var(--red);">Norma de oro</div>
+        <div class="principio-desc">La broma acaba cuando la otra persona deja de reírse.</div>
+      </div>
+    </div>
+
+    <!-- MERCADO -->
+    <div class="reg-section">
+      <div class="reg-section-header">
+        <div class="reg-section-num">05</div>
+        <div class="reg-section-icon">💰</div>
+        <div class="reg-section-title">Normas del Mercado</div>
+      </div>
+      <p class="reg-text">El mercado es el corazón de MARCA Fantasy. Todas las operaciones deben ser <strong>limpias, coherentes y competitivas</strong>.</p>
+      <div class="reg-dos-col">
+        <div class="reg-permitido">
+          <div class="reg-col-title green">✅ Permitido</div>
+          <ul class="reg-list">
+            <li>Pujar por jugadores del mercado</li>
+            <li>Comprar y vender jugadores</li>
+            <li>Negociar precios y hacer ofertas</li>
+            <li>Fichar estratégicamente</li>
+            <li>Pagar por encima del valor de mercado</li>
+            <li>Rechazar cualquier oferta</li>
+            <li>Competir agresivamente en fichajes</li>
+          </ul>
+        </div>
+        <div class="reg-prohibido">
+          <div class="reg-col-title red">❌ Prohibido</div>
+          <ul class="reg-list">
+            <li>Intercambios de jugadores entre managers</li>
+            <li>Cesiones encubiertas temporales</li>
+            <li>Ventas pactadas a precio ridículo</li>
+            <li>Acuerdos del tipo "te doy este, tú me das ese"</li>
+            <li>Guardar jugadores para otro manager</li>
+            <li>Desmantelar el equipo adrede</li>
+            <li>Vender plantilla entera con mala fe</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALINEACIONES -->
+    <div class="reg-section">
+      <div class="reg-section-header">
+        <div class="reg-section-num">07</div>
+        <div class="reg-section-icon">📋</div>
+        <div class="reg-section-title">Alineaciones</div>
+      </div>
+      <p class="reg-text">Todos los managers deben intentar hacer <strong>la mejor alineación posible cada jornada</strong>. No está permitido dejarse perder ni hacer alineaciones claramente perjudiciales para beneficiar a otro.</p>
+      <div class="reg-dos-col">
+        <div class="reg-permitido">
+          <div class="reg-col-title green">✅ Normal / Aceptado</div>
+          <ul class="reg-list">
+            <li>Despistes puntuales</li>
+            <li>Lesiones de última hora</li>
+            <li>Jugadores que no juegan</li>
+            <li>Errores aislados de gestión</li>
+          </ul>
+        </div>
+        <div class="reg-prohibido">
+          <div class="reg-col-title red">❌ Revisable / Sancionable</div>
+          <ul class="reg-list">
+            <li>Huecos vacíos sin motivo</li>
+            <li>Jugadores disponibles dejados fuera</li>
+            <li>Alineación mala en jornada clave</li>
+            <li>Intención de beneficiar a otro manager</li>
+            <li>Repetición de errores sospechosos</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PACTOS -->
+    <div class="reg-section">
+      <div class="reg-section-header">
+        <div class="reg-section-num">09</div>
+        <div class="reg-section-icon">🚫</div>
+        <div class="reg-section-title">Pactos Ilegales</div>
+      </div>
+      <p class="reg-text">Queda <strong>prohibido cualquier pacto entre participantes</strong> que altere la competición. La liga debe decidirse por gestión, estrategia, fichajes y puntuaciones, no por acuerdos ocultos.</p>
+      <div class="reg-prohibido" style="border-left:3px solid var(--red);">
+        <div class="reg-col-title red">❌ Pactos prohibidos</div>
+        <ul class="reg-list" style="display:grid;grid-template-columns:1fr 1fr;gap:0 1rem;">
+          <li>Pactar ventas baratas</li>
+          <li>Pactar intercambios</li>
+          <li>Pactar cesiones</li>
+          <li>Pactar alineaciones</li>
+          <li>Pactar dejarse perder</li>
+          <li>Pactar ayudas externas</li>
+          <li>Pactar perjudicar a un tercero</li>
+          <li>Pactar recompras futuras</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FALTAS -->
+    <div class="reg-section">
+      <div class="reg-section-header">
+        <div class="reg-section-num">13</div>
+        <div class="reg-section-icon">⚠️</div>
+        <div class="reg-section-title">Tipos de Faltas</div>
+      </div>
+      <div class="faltas-grid">
+        <div class="falta-card leve">
+          <div class="falta-card-title">🟡 Falta Leve</div>
+          <div class="falta-sancion">Advertencia · -3 a -10 pts</div>
+          <div class="falta-ejemplos">Comentario fuera de tono · Broma que molesta · Provocación puntual · Quejas con malas formas · Spam excesivo · Discusión innecesaria</div>
+        </div>
+        <div class="falta-card grave">
+          <div class="falta-card-title">🟠 Falta Grave</div>
+          <div class="falta-sancion">-10 a -30 pts · Anulación de ops.</div>
+          <div class="falta-ejemplos">Insultar · Menospreciar · Humillar públicamente · Acusar sin pruebas · Intentar intercambio de jugadores · Venta sospechosa · Alineación manipulada</div>
+        </div>
+        <div class="falta-card muygrave">
+          <div class="falta-card-title">🔴 Falta Muy Grave</div>
+          <div class="falta-sancion">-25 a -50 pts · Hasta expulsión</div>
+          <div class="falta-ejemplos">Amenazas · Acoso · Pactos ilegales · Manipulación del mercado · Dejar equipo vacío · Multicuentas · Sabotaje · Abandono conflictivo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLA SANCIONES -->
+    <div class="reg-section">
+      <div class="reg-section-header">
+        <div class="reg-section-num">16</div>
+        <div class="reg-section-icon">📊</div>
+        <div class="reg-section-title">Tabla de Sanciones</div>
+      </div>
+      <table class="sanciones-tabla">
+        <thead>
+          <tr>
+            <th>Conducta</th>
+            <th>Gravedad</th>
+            <th>Sanción orientativa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Comentario fuera de tono</td><td><span class="badge-leve">Leve</span></td><td>Advertencia</td></tr>
+          <tr><td>Provocación puntual</td><td><span class="badge-leve">Leve</span></td><td>-3 a -5 puntos</td></tr>
+          <tr><td>Quejas con malas formas</td><td><span class="badge-leve">Leve</span></td><td>-3 a -8 puntos</td></tr>
+          <tr><td>Insulto puntual</td><td><span class="badge-grave">Grave</span></td><td>-10 a -15 puntos</td></tr>
+          <tr><td>Menosprecio claro</td><td><span class="badge-grave">Grave</span></td><td>-10 a -20 puntos</td></tr>
+          <tr><td>Humillación pública</td><td><span class="badge-grave">Grave</span></td><td>-15 a -30 puntos</td></tr>
+          <tr><td>Acusación sin pruebas</td><td><span class="badge-grave">Grave</span></td><td>-5 a -15 puntos</td></tr>
+          <tr><td>Intercambio de jugadores</td><td><span class="badge-muygrave">Muy grave</span></td><td>Anulación + -10 a -30 pts</td></tr>
+          <tr><td>Cesión encubierta</td><td><span class="badge-muygrave">Muy grave</span></td><td>Anulación + -20 a -40 pts</td></tr>
+          <tr><td>Pacto ilegal</td><td><span class="badge-muygrave">Muy grave</span></td><td>Anulación + -25 a -50 pts</td></tr>
+          <tr><td>Manipulación del mercado</td><td><span class="badge-muygrave">Muy grave</span></td><td>Anulación + -25 a -50 pts</td></tr>
+          <tr><td>Dejar equipo sin jugadores adrede</td><td><span class="badge-muygrave">Muy grave</span></td><td>Anulación + -25 a -50 pts</td></tr>
+          <tr><td>Dejarse perder intencionadamente</td><td><span class="badge-muygrave">Muy grave</span></td><td>-25 a -50 puntos</td></tr>
+          <tr><td>Multicuenta</td><td><span class="badge-muygrave">Muy grave</span></td><td>Expulsión directa</td></tr>
+          <tr><td>Sabotaje de la liga</td><td><span class="badge-muygrave">Muy grave</span></td><td>Expulsión directa</td></tr>
+          <tr><td>Abandono conflictivo</td><td><span class="badge-muygrave">Muy grave</span></td><td>Expulsión + veto futuro</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- MENSAJE FINAL -->
+    <div class="reg-final">
+      <div class="reg-final-title">⚽ Mensaje Final</div>
+      <p class="reg-final-text">La DELEMID LEAGUE 2026/2027 es una liga de MARCA Fantasy entre amigos, pero no una liga sin normas. Aquí se viene a competir, fichar, vender, pujar, ganar, perder, bromear y disfrutar. Pero siempre con <strong style="color:var(--light);">respeto y juego limpio</strong>.</p>
+      <div class="reg-final-norma">Quien no respete la liga, no podrá formar parte de ella.</div>
+    </div>
+
+  
+    </div>
+  </div>
+
+  <footer><span style="color:var(--gold);">Delemid League</span> &nbsp;·&nbsp; Marca Fantasy &nbsp;·&nbsp; Temporada 2026/27</footer>
 </div>
-
-<footer>
-  <span>Delemid League</span> &nbsp;·&nbsp; Marca Fantasy &nbsp;·&nbsp; Temporada 2026/27
-</footer>
-
 </body>
 </html>
