@@ -16,6 +16,8 @@
     body { background:var(--dark); color:var(--light); font-family:'Barlow',sans-serif; overflow-x:hidden; }
 
     input[type="radio"][name="tab"] { display:none; }
+  #tab-evolucion:checked ~ .shell #pane-evolucion { display:block; }
+  #tab-evolucion:checked ~ .shell label[for="tab-evolucion"] { color:var(--gold)!important; border-bottom:3px solid var(--gold)!important; }
 
     .tab-pane {
       display: none;
@@ -354,6 +356,8 @@
     }
   
     input[type="radio"][name="tab"] { display:none; }
+  #tab-evolucion:checked ~ .shell #pane-evolucion { display:block; }
+  #tab-evolucion:checked ~ .shell label[for="tab-evolucion"] { color:var(--gold)!important; border-bottom:3px solid var(--gold)!important; }
     .tab-pane { display:none; min-height:calc(100vh - 64px); padding-top:64px; }
     #pane-inicio { flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden; }
   #tab-inicio:checked ~ .shell #pane-inicio { display:flex; }
@@ -396,6 +400,7 @@
 <input type="radio" name="tab" id="tab-ultimahora">
 <input type="radio" name="tab" id="tab-presidentes">
 <input type="radio" name="tab" id="tab-reglamento">
+<input type="radio" name="tab" id="tab-evolucion">
 
 <div class="shell">
   <nav>
@@ -407,10 +412,11 @@
       <label for="tab-mejores" class="nav-btn">Mejores Jugadores</label>
       <label for="tab-estadisticas" class="nav-btn">Estadísticas</label>
       <label for="tab-palmares" class="nav-btn">Palmarés</label>
-      <label for="tab-fichajes" class="nav-btn">Fichajes</label>
+      <label for="tab-fichajes" class="nav-btn">MVP de cada uno</label>
       <label for="tab-ultimahora" class="nav-btn">Última Hora</label>
       <label for="tab-presidentes" class="nav-btn">Presidentes</label>
       <label for="tab-reglamento" class="nav-btn">Reglamento</label>
+      <label for="tab-evolucion" class="nav-btn">Evolución</label>
 
     </div>
   </nav>
@@ -500,14 +506,14 @@
     <div class="divider"></div>
     <p style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;color:var(--gray);letter-spacing:1px;margin-bottom:2.5rem;">Los fichajes más rentables de la Delemid League esta temporada.</p>
     <div class="players-grid">
+      <div class="player-card"><div class="card-avatar">JB</div><div class="card-pos">Mediapunta</div><div class="card-name">Jude Bellingham</div><div class="card-stat-main">28</div><div class="card-stat-label">puntos</div></div>
+      <div class="player-card"><div class="card-avatar">MB</div><div class="card-pos">Delantero</div><div class="card-name">Mbappé</div><div class="card-stat-main">27</div><div class="card-stat-label">puntos</div></div>
+      <div class="player-card"><div class="card-avatar">AV</div><div class="card-pos">Portero</div><div class="card-name">Álvaro Vallés</div><div class="card-stat-main">27</div><div class="card-stat-label">puntos</div></div>
       <div class="player-card"><div class="card-avatar">MD</div><div class="card-pos">Delantero</div><div class="card-name">Mariano Díaz</div><div class="card-stat-main">25</div><div class="card-stat-label">puntos</div></div>
-      <div class="player-card"><div class="card-avatar">RA</div><div class="card-pos">Extremo Der</div><div class="card-name">Raphinha</div><div class="card-stat-main">24</div><div class="card-stat-label">puntos  · David Jorge</div></div>
+      <div class="player-card"><div class="card-avatar">RA</div><div class="card-pos">Extremo Der</div><div class="card-name">Raphinha</div><div class="card-stat-main">24</div><div class="card-stat-label">puntos  · Ivan Blanco</div></div>
       <div class="player-card"><div class="card-avatar">MI</div><div class="card-pos">Delantero</div><div class="card-name">Mikautadze</div><div class="card-stat-main">23</div><div class="card-stat-label">puntos</div></div>
       <div class="player-card"><div class="card-avatar">TE</div><div class="card-pos">Lateral Der</div><div class="card-name">Tenaglia</div><div class="card-stat-main">21</div><div class="card-stat-label">puntos</div></div>
-      <div class="player-card"><div class="card-avatar">DS</div><div class="card-pos">Portero</div><div class="card-name">David Soria</div><div class="card-stat-main">19</div><div class="card-stat-label">puntos  · Esteve Badia</div></div>
-      <div class="player-card"><div class="card-avatar">FL</div><div class="card-pos">Centrocampista</div><div class="card-name">Fermín López</div><div class="card-stat-main">19</div><div class="card-stat-label">puntos</div></div>
-      <div class="player-card"><div class="card-avatar">PE</div><div class="card-pos">Defensa Central</div><div class="card-name">Pepe</div><div class="card-stat-main">19</div><div class="card-stat-label">puntos</div></div>
-      <div class="player-card"><div class="card-avatar">RO</div><div class="card-pos">Centrocampista</div><div class="card-name">Roberto</div><div class="card-stat-main">19</div><div class="card-stat-label">puntos  · Ivan Blanco</div></div>
+      <div class="player-card"><div class="card-avatar">AU</div><div class="card-pos">Delantero</div><div class="card-name">Aubameyang</div><div class="card-stat-main">20</div><div class="card-stat-label">puntos</div></div>
     </div>
   </div>
   </div>
@@ -615,83 +621,91 @@
 
   <div class="tab-pane" id="pane-fichajes">
 <div class="section-inner">
-    <div class="section-label">Mercado de fichajes · 2026/27</div>
-    <div class="section-title">Fichajes</div>
+    <div class="section-label">Mejor jugador por manager · 2026/27</div>
+    <div class="section-title">MVP de cada uno</div>
     <div class="divider"></div>
 
     <div class="fichajes-layout">
-
-      <!-- Luis López -->
       <div class="equipo-card">
         <div class="equipo-header">
           <div class="equipo-avatar">LL</div>
           <div class="equipo-nombre">Luis López</div>
-          <div class="equipo-badge">Presidente</div>
         </div>
-        <div class="empty-state">Sin movimientos registrados</div>
+        <div style="padding:1.2rem 1.5rem;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);line-height:1;">Dimitrovic</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:0.3rem;">16 puntos · MVP</div>
+        </div>
       </div>
 
-      <!-- David Jorge -->
       <div class="equipo-card">
         <div class="equipo-header">
           <div class="equipo-avatar">DJ</div>
           <div class="equipo-nombre">David Jorge</div>
         </div>
-        <div class="empty-state">Sin movimientos registrados</div>
+        <div style="padding:1.2rem 1.5rem;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);line-height:1;">Fran García</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:0.3rem;">16 puntos · MVP</div>
+        </div>
       </div>
 
-      <!-- Marcel Campos -->
       <div class="equipo-card">
         <div class="equipo-header">
           <div class="equipo-avatar">MC</div>
           <div class="equipo-nombre">Marcel Campos</div>
         </div>
-        <div class="empty-state">Sin movimientos registrados</div>
+        <div class="empty-state">Sin participación esta temporada</div>
       </div>
 
-      <!-- Ivan Blanco -->
-      <div class="equipo-card">
-        <div class="equipo-header">
-          <div class="equipo-avatar">IB</div>
-          <div class="equipo-nombre">Ivan Blanco</div>
-        </div>
-        <div class="empty-state">Sin movimientos registrados</div>
-      </div>
-
-      <!-- Ivan Merino -->
       <div class="equipo-card">
         <div class="equipo-header">
           <div class="equipo-avatar">IM</div>
           <div class="equipo-nombre">Ivan Merino</div>
         </div>
-        <div class="empty-state">Sin movimientos registrados</div>
+        <div style="padding:1.2rem 1.5rem;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);line-height:1;">Pepelu</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:0.3rem;">12 puntos · MVP</div>
+        </div>
       </div>
 
-      <!-- Enric Vera -->
       <div class="equipo-card">
         <div class="equipo-header">
-          <div class="equipo-avatar">EV</div>
-          <div class="equipo-nombre">Enric Vera</div>
+          <div class="equipo-avatar">IB</div>
+          <div class="equipo-nombre">Ivan Blanco</div>
         </div>
-        <div class="empty-state">Sin movimientos registrados</div>
+        <div style="padding:1.2rem 1.5rem;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);line-height:1;">Raphinha</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:0.3rem;">24 puntos · MVP</div>
+        </div>
       </div>
 
-      <!-- Esteve Badia -->
       <div class="equipo-card">
         <div class="equipo-header">
           <div class="equipo-avatar">EB</div>
           <div class="equipo-nombre">Esteve Badia</div>
         </div>
-        <div class="empty-state">Sin movimientos registrados</div>
+        <div style="padding:1.2rem 1.5rem;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);line-height:1;">David Soria</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:0.3rem;">19 puntos · MVP</div>
+        </div>
       </div>
 
-      <!-- Dolors Porta -->
       <div class="equipo-card">
         <div class="equipo-header">
           <div class="equipo-avatar">DP</div>
           <div class="equipo-nombre">Dolors Porta</div>
         </div>
-        <div class="empty-state">Sin movimientos registrados</div>
+        <div class="empty-state">Sin participación esta temporada</div>
+      </div>
+
+      <div class="equipo-card">
+        <div class="equipo-header">
+          <div class="equipo-avatar">EV</div>
+          <div class="equipo-nombre">Enric Vera</div>
+        </div>
+        <div style="padding:1.2rem 1.5rem;">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--gold);line-height:1;">Sivera</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:0.3rem;">18 puntos · MVP</div>
+        </div>
       </div>
 
     </div>
@@ -1317,7 +1331,194 @@
     </div>
   </div>
 
+
+  <div class="tab-pane" id="pane-evolucion" style="background:#0A0A0F;">
+    <div class="section-inner">
+      <div class="section-label">Temporada 2026/27</div>
+      <div class="section-title">Evolución</div>
+      <div class="divider"></div>
+
+      <p style="font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:var(--gray);letter-spacing:1px;margin-bottom:2.5rem;">Puntos acumulados por jornada · Actualizado tras J2</p>
+
+      <!-- CHART -->
+      <div style="background:#12121A;border:1px solid rgba(245,200,66,0.12);padding:2rem;margin-bottom:2rem;position:relative;">
+        <canvas id="evolucionChart"></canvas>
+      </div>
+
+      <!-- LEYENDA -->
+      
+
+      <!-- TABLA RESUMEN -->
+      <div style="background:#12121A;border:1px solid rgba(255,255,255,0.07);overflow:hidden;">
+        <div style="padding:1.2rem 1.5rem;border-bottom:2px solid var(--gold);">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);">Puntos por jornada</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-family:'Barlow Condensed',sans-serif;">
+            <thead>
+              <tr style="background:rgba(245,200,66,0.05);">
+                <th style="padding:0.8rem 1rem;text-align:left;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(255,255,255,0.06);">Manager</th>
+                <th style="padding:0.8rem 1rem;text-align:center;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(255,255,255,0.06);">J1</th>
+                <th style="padding:0.8rem 1rem;text-align:center;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(255,255,255,0.06);">J2</th>
+                <th style="padding:0.8rem 1rem;text-align:center;font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);border-bottom:1px solid rgba(255,255,255,0.06);">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                <td style="padding:0.9rem 1rem;color:#F0EDE8;font-weight:700;">Ivan Blanco</td>
+                <td style="padding:0.9rem 1rem;text-align:center;color:rgba(240,237,232,0.7);">50</td>
+                <td style="padding:0.9rem 1rem;text-align:center;color:rgba(240,237,232,0.7);">60</td>
+                <td style="padding:0.9rem 1rem;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#F5C842;">110</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                <td style="padding:0.9rem 1rem;color:#F0EDE8;font-weight:700;">David Jorge</td>
+                <td style="padding:0.9rem 1rem;text-align:center;color:rgba(240,237,232,0.7);">27</td>
+                <td style="padding:0.9rem 1rem;text-align:center;color:rgba(240,237,232,0.7);">73</td>
+                <td style="padding:0.9rem 1rem;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#F5C842;">100</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                <td style="padding:0.9rem 1rem;color:#F0EDE8;font-weight:700;">Esteve Badia</td>
+                <td style="padding:0.9rem 1rem;text-align:center;color:rgba(240,237,232,0.7);">40</td>
+                <td style="padding:0.9rem 1rem;text-align:center;color:rgba(240,237,232,0.7);">60</td>
+                <td style="padding:0.9rem 1rem;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#F5C842;">100</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                <td style="padding:0.9rem 1rem;color:#F0EDE8;font-weight:700;">Luis López</td>
+                <td style="padding:0.9rem 1rem;text-align:center;color:rgba(240,237,232,0.7);">30</td>
+                <td style="padding:0.9rem 1rem;text-align:center;color:rgba(240,237,232,0.7);">35</td>
+                <td style="padding:0.9rem 1rem;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#F5C842;">65</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+                <td style="padding:0.9rem 1rem;color:#F0EDE8;font-weight:700;">Enric Vera</td>
+                <td style="padding:0.9rem 1rem;text-align:center;color:rgba(240,237,232,0.7);">18</td>
+                <td style="padding:0.9rem 1rem;text-align:center;color:rgba(240,237,232,0.7);">36</td>
+                <td style="padding:0.9rem 1rem;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#F5C842;">54</td>
+              </tr>
+              <tr>
+                <td style="padding:0.9rem 1rem;color:#F0EDE8;font-weight:700;">Ivan Merino</td>
+                <td style="padding:0.9rem 1rem;text-align:center;color:rgba(240,237,232,0.7);">7</td>
+                <td style="padding:0.9rem 1rem;text-align:center;color:rgba(240,237,232,0.7);">28</td>
+                <td style="padding:0.9rem 1rem;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:#F5C842;">35</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer><span style="color:var(--gold);">Delemid League</span> &nbsp;·&nbsp; Marca Fantasy &nbsp;·&nbsp; Temporada 2026/27</footer>
 </div>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+(function() {
+  function initChart() {
+    var pane = document.getElementById('pane-evolucion');
+    if (!pane || getComputedStyle(pane).display === 'none') return;
+    if (window._chartInstance) { window._chartInstance.destroy(); }
+
+    var ctx = document.getElementById('evolucionChart').getContext('2d');
+
+    var managers = [
+      { label: 'Ivan Blanco',  data: [0, 50, 110], color: '#ff4444' },
+      { label: 'David Jorge',  data: [0, 27, 100], color: '#F5C842' },
+      { label: 'Esteve Badia', data: [0, 40, 100], color: '#4d8fff' },
+      { label: 'Luis López',   data: [0, 30,  65], color: '#ff8800' },
+      { label: 'Enric Vera',   data: [0, 18,  54], color: '#00e5cc' },
+      { label: 'Ivan Merino',  data: [0,  7,  35], color: '#c084fc' },
+    ];
+
+    window._chartInstance = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Inicio', 'Jornada 1', 'Jornada 2'],
+        datasets: managers.map(function(m) {
+          return {
+            label: m.label,
+            data: m.data,
+            borderColor: m.color,
+            backgroundColor: m.color + '22',
+            borderWidth: 3,
+            pointBackgroundColor: m.color,
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 7,
+            pointHoverRadius: 10,
+            tension: 0.35,
+            fill: false,
+          };
+        })
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 2,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: 'rgba(240,237,232,0.8)',
+              font: { family: 'Barlow Condensed', size: 13, weight: '600' },
+              padding: 20,
+              usePointStyle: true,
+              pointStyleWidth: 12,
+            }
+          },
+          tooltip: {
+            backgroundColor: '#1C1C28',
+            borderColor: 'rgba(245,200,66,0.3)',
+            borderWidth: 1,
+            titleColor: '#F5C842',
+            bodyColor: 'rgba(240,237,232,0.8)',
+            titleFont: { family: 'Bebas Neue', size: 14, weight: 'bold' },
+            bodyFont: { family: 'Barlow Condensed', size: 13 },
+            padding: 12,
+            callbacks: {
+              label: function(ctx) {
+                return '  ' + ctx.dataset.label + ': ' + ctx.parsed.y + ' pts';
+              }
+            }
+          },
+          datalabels: false,
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(255,255,255,0.06)' },
+            ticks: {
+              color: 'rgba(240,237,232,0.6)',
+              font: { family: 'Barlow Condensed', size: 13, weight: '600' },
+            },
+            border: { color: 'rgba(255,255,255,0.1)' }
+          },
+          y: {
+            min: 0,
+            max: 130,
+            grid: { color: 'rgba(255,255,255,0.06)' },
+            ticks: {
+              color: 'rgba(240,237,232,0.6)',
+              font: { family: 'Barlow Condensed', size: 12 },
+              stepSize: 20,
+              callback: function(v) { return v + ' pts'; }
+            },
+            border: { color: 'rgba(255,255,255,0.1)' }
+          }
+        }
+      }
+    });
+  }
+
+  document.querySelectorAll('input[name="tab"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      setTimeout(initChart, 100);
+    });
+  });
+  setTimeout(initChart, 300);
+})();
+</script>
+
 </body>
 </html>
